@@ -25,10 +25,12 @@ const visualRecognition = new VisualRecognitionV3({
 var mysql = require('mysql');
 var client = mysql.createConnection({ user: 'root', password: '1990' });
 
+client.query('create database if not exists Watson_VR');
 client.query('use Watson_VR');
 
 // display classifierIDs stored in DB
 var temp_str='';
+client.query('create table if not exists VR_Classifier (id varchar(45) not null, description varchar(45), primary key(id))');
 client.query('select * from VR_Classifier', function(error, result){
   if(error){ console.log('Error in DB Query');
   }else{
